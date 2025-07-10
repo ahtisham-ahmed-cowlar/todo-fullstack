@@ -1,0 +1,22 @@
+services:
+  test-manufacturing-data-postgres:
+    image: postgres:17.0
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-root}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-secret}
+      POSTGRES_DB: ${DATABASE_NAME:-test-manufacturing-data}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - test-manufacturing-data-db-volume:/var/lib/postgresql/data
+  test-manufacturing-data-adminer:
+    image: adminer:4.8.1
+    container_name: adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT:-8091}:8080
+
+volumes:
+  test-manufacturing-data-db-volume:
